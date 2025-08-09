@@ -120,7 +120,23 @@ Expected format: `year,rate` (e.g., `2020,1.4`)
 - **Validation**: Comprehensive input validation with Pydantic
 - **Graceful Degradation**: Invalid CSV rows are skipped with warnings
 
-## Testing
+## Testing & Development Process
+
+### Test-Driven Development (TDD)
+**CRITICAL**: Always follow the TDD Red-Green-Refactor cycle for any code changes:
+
+1. **Plan** - Understand the behavioral change needed
+2. **Red** - Write a failing test that verifies the desired functionality  
+3. **Confirm** - Run test to ensure it fails for the right reason
+4. **Green** - Write minimal code to make test pass (implement actual functionality)
+5. **Verify** - Run test to confirm it passes
+6. **Refactor** - Improve structure using Fowler's refactoring methods
+7. **Repeat** - Continue in small increments
+
+### Change Separation
+- **Behavioral changes** (functionality) vs **Structural changes** (organization)
+- **Never mix these in the same step** - first make it work, then make it clean
+- Examples: "Add validation logic" (behavioral) vs "Extract validation class" (structural)
 
 ### Test Structure
 - **Unit Tests**: 36 tests covering all components with 81% coverage
@@ -129,6 +145,16 @@ Expected format: `year,rate` (e.g., `2020,1.4`)
 - **Fixtures**: Shared test data and mock repositories
 
 ### Running Tests
+**Use Makefile commands for consistency:**
+```bash
+# Run all tests (preferred)
+make test
+
+# Full build pipeline with tests
+make build
+```
+
+**Direct pytest commands (if needed):**
 ```bash
 # All tests
 uv run pytest

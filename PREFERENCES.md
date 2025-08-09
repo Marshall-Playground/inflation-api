@@ -18,11 +18,30 @@ This file contains my development preferences and conventions. Please refer to t
 
 ## 🧪 Testing & Quality
 
-### Testing Strategy
+### Test-Driven Development (TDD)
+- **ALWAYS follow the TDD Red-Green-Refactor cycle:**
+  1. **Plan the change** - Understand what behavior needs to be implemented
+  2. **Red**: Write a test that fails - test should verify the desired functionality
+  3. **Confirm failure**: Run the test to ensure it actually fails for the right reason
+  4. **Green**: Write minimal code to make the test pass - implement the actual functionality (don't cheat)
+  5. **Run test**: Verify the test now passes
+  6. **Refactor**: Improve code structure using Fowler's refactoring methods
+  7. **Repeat**: Continue in small, incremental steps
+
+### Change Separation Principle
+- **Behavioral changes** (what the app does) vs **Structural changes** (how it's organized)
+- **Never mix behavioral and structural changes** in the same step
+- Examples:
+  - Behavioral: "Add user authentication", "Calculate compound interest", "Validate email format"
+  - Structural: "Rename class User to Account", "Extract interface", "Split function into smaller functions"
+- **First make behavioral changes work, then refactor structure**
+
+### Testing Strategy  
 - **Comprehensive unit tests** are essential - add them even if the original project lacks them
 - Achieve high test coverage (aim for 80%+)
 - Include both unit tests and integration tests
 - Test error cases and edge conditions thoroughly
+- **Tests must verify actual functionality** - no fake implementations just to pass tests
 
 ### Code Quality Tools
 - **Python**: Use `ruff` for both linting and formatting, `mypy` for type checking
@@ -101,9 +120,22 @@ This file contains my development preferences and conventions. Please refer to t
 
 ### Approach to Implementation
 - **Start with planning** - break down complex tasks into manageable steps
-- **Implement incrementally** - build and test each component thoroughly
+- **Follow TDD religiously** - Red-Green-Refactor for every change
+- **Work in small increments** - each step should be a complete Red-Green-Refactor cycle
+- **Separate behavioral from structural changes** - never mix what the app does with how it's organized
 - **Follow existing patterns** in the codebase when extending functionality
 - **Modernize while migrating** - take opportunities to improve architecture
+
+### Refactoring Discipline
+- **Use Martin Fowler's refactoring catalog** from the "Refactoring" book
+- **Common refactoring methods**:
+  - Extract Method, Extract Class, Extract Interface
+  - Move Method, Move Field
+  - Rename Method, Rename Variable, Rename Class
+  - Replace Magic Number with Symbolic Constant
+  - Replace Conditional with Polymorphism
+- **Refactor only after tests are green** - never refactor failing code
+- **Run tests after each refactoring step** - ensure behavior is preserved
 
 ### Problem Solving
 - **Understand the domain** before implementing solutions
