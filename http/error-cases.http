@@ -1,0 +1,120 @@
+### 🚨 Error Cases and Edge Case Testing
+
+### 404 Errors - Data Not Found
+
+### Non-existent year - before available data
+GET http://localhost:8000/api/v1/inflation/rate/2010
+
+### Non-existent year - way in the past
+GET http://localhost:8000/api/v1/inflation/rate/1995
+
+### Future year beyond available data
+GET http://localhost:8000/api/v1/inflation/rate/2030
+
+### 400 Errors - Invalid Input
+
+### Year too old (before 1800)
+GET http://localhost:8000/api/v1/inflation/rate/1799
+
+### Year too far in future
+GET http://localhost:8000/api/v1/inflation/rate/2101
+
+### Invalid year format
+GET http://localhost:8000/api/v1/inflation/rate/abc
+
+### 422 Errors - Validation Errors
+
+### Same start and end year for value change
+POST http://localhost:8000/api/v1/inflation/value-change
+Content-Type: application/json
+
+{
+  "start_year": 2020,
+  "end_year": 2020
+}
+
+### Negative amount for current value
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": -50.0
+}
+
+### Zero amount for current value
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 0
+}
+
+### Invalid year range in value change request
+POST http://localhost:8000/api/v1/inflation/value-change
+Content-Type: application/json
+
+{
+  "start_year": 1799,
+  "end_year": 2020
+}
+
+### Future original year for current value
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2030
+}
+
+### Current year as original year
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2025
+}
+
+### Invalid JSON format
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": "not_a_number"
+}
+
+### Missing required fields
+POST http://localhost:8000/api/v1/inflation/value-change
+Content-Type: application/json
+
+{
+  "start_year": 2020
+}
+
+### Edge Cases - Boundary Values
+
+### Minimum valid year
+GET http://localhost:8000/api/v1/inflation/rate/1800
+
+### Maximum valid year (current year)
+GET http://localhost:8000/api/v1/inflation/rate/2025
+
+### Very small amount
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 0.01
+}
+
+### Very large amount
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 1000000.0
+}

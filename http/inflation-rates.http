@@ -1,0 +1,20 @@
+### Get inflation rate for 2020
+GET http://localhost:8000/api/v1/inflation/rate/2020
+
+### Get inflation rate for 2021
+GET http://localhost:8000/api/v1/inflation/rate/2021
+
+### Get inflation rate for 2024
+GET http://localhost:8000/api/v1/inflation/rate/2024
+
+### Get inflation rate for 2025 (current year)
+GET http://localhost:8000/api/v1/inflation/rate/2025
+
+### Try to get rate for non-existent year (should return 404)
+GET http://localhost:8000/api/v1/inflation/rate/1999
+
+### Try to get rate for invalid year (should return 400)
+GET http://localhost:8000/api/v1/inflation/rate/1799
+
+### Get available years and data range
+GET http://localhost:8000/api/v1/inflation/years

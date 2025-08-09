@@ -1,0 +1,67 @@
+### 🎯 Common Use Cases and Examples
+
+### Example 1: How much is $1000 from 2020 worth today?
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 1000.0
+}
+
+### Example 2: How has the dollar's value changed from 2020 to 2024?
+GET http://localhost:8000/api/v1/inflation/value-change?start_year=2020&end_year=2024
+
+### Example 3: What was the inflation rate during the post-COVID period?
+GET http://localhost:8000/api/v1/inflation/rate/2021
+
+### Example 4: Compare purchasing power - $500 in 2019 vs today
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2019,
+  "amount": 500.0
+}
+
+### Example 5: Salary adjustment calculation - $75,000 salary from 2020
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 75000.0
+}
+
+### Example 6: Investment return vs inflation - How much would $10,000 need to grow?
+POST http://localhost:8000/api/v1/inflation/value-change
+Content-Type: application/json
+
+{
+  "start_year": 2020,
+  "end_year": 2025
+}
+
+### Example 7: Historical comparison - $100 from the mid-2010s
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2016,
+  "amount": 100.0
+}
+
+### Example 8: Recent inflation trend - 2022 to 2024 period
+GET http://localhost:8000/api/v1/inflation/value-change?start_year=2022&end_year=2024
+
+### Example 9: Reverse calculation - What did today's $100 buy in 2020?
+GET http://localhost:8000/api/v1/inflation/value-change?start_year=2025&end_year=2020
+
+### Example 10: Small purchase power - $20 from 2018
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2018,
+  "amount": 20.0
+}

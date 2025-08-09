@@ -1,0 +1,77 @@
+### Calculate current value of $100 from 2020 (POST)
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 100.0
+}
+
+### Calculate current value of $1 from 2020 (default amount)
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020
+}
+
+### Calculate current value of $500 from 2015
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2015,
+  "amount": 500.0
+}
+
+### Calculate current value of $1000 from 2019
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2019,
+  "amount": 1000.0
+}
+
+### Calculate current value using GET method - $100 from 2020
+GET http://localhost:8000/api/v1/inflation/current-value?original_year=2020&amount=100
+
+### Calculate current value using GET method - $50 from 2018
+GET http://localhost:8000/api/v1/inflation/current-value?original_year=2018&amount=50
+
+### Calculate current value using GET method - Default $1 from 2021
+GET http://localhost:8000/api/v1/inflation/current-value?original_year=2021
+
+### Try future year (should return 400 error)
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2030
+}
+
+### Try current year (should return 400 error)
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2025
+}
+
+### Try negative amount (should return 422 validation error)
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": -100
+}
+
+### Try zero amount (should return 422 validation error)
+POST http://localhost:8000/api/v1/inflation/current-value
+Content-Type: application/json
+
+{
+  "original_year": 2020,
+  "amount": 0
+}
