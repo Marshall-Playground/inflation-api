@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Development Preferences
+
+**Important:** Please refer to `PREFERENCES.md` for my development preferences and conventions when making technical decisions, choosing tools, or implementing features. This includes preferences for build systems, testing approaches, code organization, and development workflows.
+
 ## Project Overview
 
 This is a **Python 3.12+ FastAPI application** that provides USD inflation rate calculations and historical value comparisons. The service loads inflation data from CSV files and exposes REST API endpoints for inflation calculations.
@@ -13,6 +17,18 @@ This is a **Python 3.12+ FastAPI application** that provides USD inflation rate 
 The project uses **uv** for ultra-fast dependency management. Common development commands:
 
 ### Development Commands
+
+**Use the Makefile for all common tasks** (see `make help` for full list):
+- **Install dependencies**: `make install` 
+- **Run development server**: `make dev`
+- **Run tests**: `make test`
+- **Lint code**: `make lint`
+- **Format code**: `make format`
+- **Type check**: `make typecheck`
+- **Full build pipeline**: `make build` (lint + format + typecheck + test)
+- **Clean cache**: `make clean`
+
+**Direct uv commands** (if needed):
 - **Install dependencies**: `uv sync --dev`
 - **Run application**: `uv run uvicorn inflation_api.main:app --reload`
 - **Run tests**: `uv run pytest`
@@ -130,10 +146,22 @@ uv run pytest --cov=inflation_api --cov-report=html
 ## Development Setup
 
 1. **Install uv**: Follow instructions at https://docs.astral.sh/uv/
-2. **Clone and setup**: `uv sync --dev`
+2. **Clone and setup**: `make install`
 3. **Setup pre-commit**: `uv run pre-commit install` 
-4. **Run application**: `uv run uvicorn inflation_api.main:app --reload`
+4. **Run application**: `make dev`
 5. **Access docs**: http://localhost:8000/docs
+
+## Manual API Testing
+
+**HTTP request files** are available in the `http/` directory for manual API testing:
+- `health.http` - Health checks and documentation
+- `inflation-rates.http` - Basic rate retrieval  
+- `value-change.http` - Inflation calculations between years
+- `current-value.http` - Modern purchasing power calculations
+- `examples.http` - Real-world use cases
+- `error-cases.http` - Edge cases and validation testing
+
+**Usage:** Install the REST Client extension in your IDE and click "Send Request" above any HTTP request.
 
 ## Code Quality
 
