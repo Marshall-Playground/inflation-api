@@ -1,7 +1,7 @@
 # Inflation API - Development Commands
 # Usage: make <command>
 
-.PHONY: help install lint format test typecheck build dev server clean
+.PHONY: help install lint format test typecheck build dev server clean status commit push sync
 
 # Default target
 help:
@@ -15,6 +15,12 @@ help:
 	@echo "  dev        - Start development server with auto-reload"
 	@echo "  server     - Start production server"
 	@echo "  clean      - Clean cache and temporary files"
+	@echo ""
+	@echo "Version Control (jj with git backend):"
+	@echo "  status     - Show working copy status"
+	@echo "  commit     - Commit current changes"
+	@echo "  push       - Push main bookmark to github remote"
+	@echo "  sync       - Sync with remotes and rebase"
 
 # Install dependencies
 install:
@@ -68,3 +74,27 @@ clean:
 	find . -name '.mypy_cache' -exec rm -rf {} + 2>/dev/null || true
 	find . -name '.ruff_cache' -exec rm -rf {} + 2>/dev/null || true
 	@echo "✅ Cache and temporary files cleaned!"
+
+# Version control commands (jj with git backend)
+
+# Show working copy status
+status:
+	@echo "Running: jj status"
+	jj status
+
+# Commit current changes (interactive)
+commit:
+	@echo "Running: jj commit"
+	jj commit
+
+# Push main bookmark to github remote
+push:
+	@echo "Running: jj git push --bookmark main"
+	jj git push --bookmark main
+
+# Sync with remotes and rebase
+sync:
+	@echo "Running: jj git fetch"
+	@echo "Running: jj rebase -d main"
+	jj git fetch
+	jj rebase -d main
