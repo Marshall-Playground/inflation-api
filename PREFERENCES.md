@@ -4,12 +4,14 @@ This file contains my development preferences and conventions. Please refer to t
 
 ## 🛠️ Build & Development Tools
 
-### Makefiles
+### Makefiles (Self-Discoverable)
 - **Always include a Makefile** for common development tasks
 - **Print commands before execution** using `@echo "Running: <command>"` 
 - Include standard targets: `help`, `install`, `lint`, `format`, `test`, `typecheck`, `build`, `dev`, `server`, `clean`
 - `build` target should run the full CI pipeline (lint + format + typecheck + test)
-- Provide clear help documentation as the default target
+- **`help` must be the default target** - users should discover all capabilities by typing `make`
+- **Provide clear help documentation** - every target should be explained with purpose and usage
+- **Group related commands** in help output for better discoverability
 
 ### Dependency Management
 - **Python**: Use `uv` for package management and virtual environments
@@ -49,11 +51,12 @@ This file contains my development preferences and conventions. Please refer to t
 - Use strict type checking settings
 - Implement pre-commit hooks for automated quality checks
 
-### API Testing
+### API Testing (Self-Discoverable)
 - **Always create HTTP request files** for manual API testing (`.http` files)
 - Organize into logical categories: basic operations, examples, error cases
-- Include comprehensive documentation on how to use the HTTP files
-- Support multiple tools (VS Code REST Client, IntelliJ, curl, HTTPie)
+- **Include comprehensive documentation** on how to use the HTTP files with examples
+- **Provide multiple usage options** (VS Code REST Client, IntelliJ, curl, HTTPie) with exact instructions
+- **Create a README.md in http/ directory** explaining all available request files and their purposes
 
 ## 🏗️ Architecture & Design
 
@@ -84,11 +87,12 @@ This file contains my development preferences and conventions. Please refer to t
 - **Async/await** patterns for I/O operations
 - **Decimal** type for financial calculations requiring precision
 
-### Development Workflow
+### Development Workflow (Self-Discoverable)
 - **Hot reload** in development environments
-- **Automatic documentation** generation (Swagger/OpenAPI)
-- **Configuration through environment variables** with sensible defaults
-- **Health check endpoints** for monitoring
+- **Automatic documentation** generation (Swagger/OpenAPI) - users should discover all API capabilities through `/docs`
+- **Configuration through environment variables** with sensible defaults and clear documentation
+- **Health check endpoints** for monitoring with detailed status information
+- **Interactive API documentation** should be comprehensive and include examples
 
 ## 📊 Data & Precision
 
@@ -104,19 +108,31 @@ This file contains my development preferences and conventions. Please refer to t
 
 ## 🔧 Configuration & Setup
 
-### Project Structure
+### Project Structure (Self-Discoverable)
 - **Modern project structure** following language/framework conventions
 - **Comprehensive documentation** including setup, usage, and API examples
-- **Environment-specific configuration** files
+- **Environment-specific configuration** files with clear documentation
 - **Clear separation** between development and production settings
+- **README.md should guide users from zero to running** - no assumed knowledge
+- **CLAUDE.md should contain all development guidance** - developers should discover everything needed
 
-### Documentation
-- **README.md** with clear setup and usage instructions
-- **API documentation** with examples and error cases
-- **HTTP request collections** for manual testing and exploration
+### Documentation (Self-Discoverable)
+- **README.md** with clear setup and usage instructions - assume no prior knowledge
+- **API documentation** with examples and error cases - should be complete and immediately usable
+- **HTTP request collections** for manual testing and exploration with detailed README
+- **CLI help systems** must be comprehensive - `--help` should provide everything needed
 - **Inline documentation** for complex business logic only
+- **All tools should have discovery commands** (like `make help`, `CLI --help`, `/docs` endpoints)
 
 ## 🎯 Development Philosophy
+
+### Self-Discoverable Software Design
+- **CRITICAL: All software must be self-discoverable** - users should need to know the minimum possible to use any part of it
+- **Exploration should provide all necessary information** - simple discovery commands should reveal capabilities and usage
+- **Help systems should be comprehensive** - every tool, CLI, API should have complete help documentation
+- **Examples should be built-in** - provide working examples that users can immediately copy and modify
+- **Progressive disclosure** - start simple, reveal complexity only when needed
+- **No hidden features** - all capabilities should be discoverable through normal usage patterns
 
 ### Approach to Implementation
 - **Start with planning** - break down complex tasks into manageable steps
@@ -125,6 +141,7 @@ This file contains my development preferences and conventions. Please refer to t
 - **Separate behavioral from structural changes** - never mix what the app does with how it's organized
 - **Follow existing patterns** in the codebase when extending functionality
 - **Modernize while migrating** - take opportunities to improve architecture
+- **Design for discoverability first** - every interface should guide users to success
 
 ### Refactoring Discipline
 - **Use Martin Fowler's refactoring catalog** from the "Refactoring" book

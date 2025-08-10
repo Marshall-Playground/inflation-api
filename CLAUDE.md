@@ -6,6 +6,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Important:** Please refer to `PREFERENCES.md` for my development preferences and conventions when making technical decisions, choosing tools, or implementing features. This includes preferences for build systems, testing approaches, code organization, and development workflows.
 
+## Self-Discoverable Software Design
+
+**CRITICAL PRINCIPLE:** All software must be self-discoverable. Users should need to know the minimum possible to use any part of the system. The simple process of exploration should provide all necessary information.
+
+### Implementation Requirements:
+- **Help systems must be comprehensive** - every CLI, API, tool should guide users to success
+- **Progressive disclosure** - start simple, reveal complexity only when needed  
+- **Built-in examples** - provide working examples users can immediately copy and modify
+- **No hidden features** - all capabilities discoverable through normal usage patterns
+- **Default to help** - `make`, `CLI --help`, `/docs` should be the starting point for any tool
+
+### Examples in this Project:
+- `make` shows all available development commands with descriptions
+- `make data-sources` reveals the complete data source management CLI
+- `/docs` endpoint provides interactive API documentation with examples
+- `http/README.md` guides users through all manual testing options
+- Each CLI tool has comprehensive `--help` output with usage examples
+
 ## Project Overview
 
 This is a **Python 3.12+ FastAPI application** that provides USD inflation rate calculations and historical value comparisons. The service loads inflation data from CSV files and exposes REST API endpoints for inflation calculations.
@@ -18,7 +36,7 @@ The project uses **uv** for ultra-fast dependency management. Common development
 
 ### Development Commands
 
-**Use the Makefile for all common tasks** (see `make help` for full list):
+**Use the Makefile for all common tasks** (discoverable via `make` or `make help`):
 - **Install dependencies**: `make install` 
 - **Run development server**: `make dev`
 - **Run tests**: `make test`
@@ -26,7 +44,10 @@ The project uses **uv** for ultra-fast dependency management. Common development
 - **Format code**: `make format`
 - **Type check**: `make typecheck`
 - **Full build pipeline**: `make build` (lint + format + typecheck + test)
+- **Data source management**: `make data-sources` (shows CLI help)
 - **Clean cache**: `make clean`
+
+**Self-Discovery:** Just run `make` to see all available commands with descriptions.
 
 **Direct uv commands** (if needed):
 - **Install dependencies**: `uv sync --dev`
@@ -169,15 +190,22 @@ uv run pytest tests/integration/ -v
 uv run pytest --cov=inflation_api --cov-report=html
 ```
 
-## Development Setup
+## Development Setup (Self-Discoverable)
 
+**Quick Start (Zero to Running):**
 1. **Install uv**: Follow instructions at https://docs.astral.sh/uv/
-2. **Clone and setup**: `make install`
+2. **Clone and setup**: `make install`  
 3. **Setup pre-commit**: `uv run pre-commit install` 
 4. **Run application**: `make dev`
-5. **Access docs**: http://localhost:8000/docs
+5. **Discover the API**: Visit http://localhost:8000/docs
 
-## Manual API Testing
+**Self-Discovery Path:**
+- Run `make` to see all available development commands
+- Run `make data-sources` to discover the data source management CLI
+- Visit `/docs` endpoint for complete interactive API documentation
+- Check `http/README.md` for manual API testing guidance
+
+## Manual API Testing (Self-Discoverable)
 
 **HTTP request files** are available in the `http/` directory for manual API testing:
 - `health.http` - Health checks and documentation
@@ -187,7 +215,12 @@ uv run pytest --cov=inflation_api --cov-report=html
 - `examples.http` - Real-world use cases
 - `error-cases.http` - Edge cases and validation testing
 
-**Usage:** Install the REST Client extension in your IDE and click "Send Request" above any HTTP request.
+**Self-Discovery:** 
+1. **Read `http/README.md`** - contains complete usage instructions for all tools
+2. **Visit `/docs`** when server is running - interactive API documentation  
+3. **Try `health.http` first** - basic server verification
+
+**Usage Options:** REST Client extension (VS Code), IntelliJ HTTP Client, curl commands, or HTTPie - all documented in http/README.md.
 
 ## Code Quality
 
