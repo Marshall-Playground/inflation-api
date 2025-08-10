@@ -16,6 +16,9 @@ help:
 	@echo "  server     - Start production server"
 	@echo "  clean      - Clean cache and temporary files"
 	@echo ""
+	@echo "Data Source Management:"
+	@echo "  data-sources - Show data source CLI help"
+	@echo ""
 	@echo "Version Control (jj with git backend):"
 	@echo "  status     - Show working copy status"
 	@echo "  commit     - Commit current changes"
@@ -74,6 +77,11 @@ clean:
 	find . -name '.mypy_cache' -exec rm -rf {} + 2>/dev/null || true
 	find . -name '.ruff_cache' -exec rm -rf {} + 2>/dev/null || true
 	@echo "✅ Cache and temporary files cleaned!"
+
+# Data source management
+data-sources:
+	@echo "Running: uv run python scripts/data_sources.py --help"
+	uv run python scripts/data_sources.py --help
 
 # Version control commands (jj with git backend)
 

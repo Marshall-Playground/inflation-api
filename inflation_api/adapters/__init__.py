@@ -1,0 +1,1 @@
+"""Format adapters for converting data from various sources to standardized CSV format."""
