@@ -1,7 +1,7 @@
 # Inflation API - Development Commands
 # Usage: make <command>
 
-.PHONY: help install lint format test typecheck build dev server clean status commit push sync
+.PHONY: help install lint format test typecheck build dev server clean 
 
 # Default target
 help:
@@ -19,11 +19,6 @@ help:
 	@echo "Data Source Management:"
 	@echo "  data-sources - Show data source CLI help"
 	@echo ""
-	@echo "Version Control (jj with git backend):"
-	@echo "  status     - Show working copy status"
-	@echo "  commit     - Commit current changes"
-	@echo "  push       - Push main bookmark to github remote"
-	@echo "  sync       - Sync with remotes and rebase"
 
 # Install dependencies
 install:
@@ -83,26 +78,3 @@ data-sources:
 	@echo "Running: uv run python scripts/data_sources.py --help"
 	uv run python scripts/data_sources.py --help
 
-# Version control commands (jj with git backend)
-
-# Show working copy status
-status:
-	@echo "Running: jj status"
-	jj status
-
-# Commit current changes (interactive)
-commit:
-	@echo "Running: jj commit"
-	jj commit
-
-# Push main bookmark to github remote
-push:
-	@echo "Running: jj git push --bookmark main"
-	jj git push --bookmark main
-
-# Sync with remotes and rebase
-sync:
-	@echo "Running: jj git fetch"
-	@echo "Running: jj rebase -d main"
-	jj git fetch
-	jj rebase -d main
