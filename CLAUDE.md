@@ -213,6 +213,9 @@ uv run pytest --cov=inflation_api --cov-report=html
 4. **Run application**: `make dev`
 5. **Discover the API**: Visit http://localhost:8000/docs
 
+**Optional Configuration:**
+- **Environment variables**: Copy `.env.example` to `.env` and modify if needed (app works with defaults)
+
 **Self-Discovery Path:**
 - Run `make` to see all available development commands
 - Run `make data-sources` to discover the data source management CLI
