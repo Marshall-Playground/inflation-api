@@ -60,6 +60,7 @@ The project uses **uv** for ultra-fast dependency management. Common development
 
 ### Data Management
 - **Load test data**: `uv run python scripts/load_data.py data/inflation_data.csv`
+- **Data source management**: `make data-sources` or `uv run python scripts/data_sources.py --help`
 - **Validate data**: Check CSV format and data integrity
 
 ## Architecture
@@ -72,7 +73,11 @@ inflation_api/
 ├── main.py                 # FastAPI app and entry point
 ├── config.py              # Settings and configuration
 ├── models/                # Pydantic data models
-│   └── inflation.py       # Request/response models
+│   ├── inflation.py       # Request/response models
+│   └── data_source.py     # Data source configuration models
+├── adapters/              # Data format adapters
+│   ├── base.py           # Abstract adapter pattern
+│   └── csv_adapter.py    # CSV format adapter
 ├── repositories/          # Data access layer
 │   ├── base.py           # Abstract repository pattern
 │   └── inflation_repository.py # CSV data repository
@@ -82,7 +87,9 @@ inflation_api/
 ├── api/                  # FastAPI routes and dependencies
 │   ├── dependencies.py   # Dependency injection
 │   └── v1/inflation.py   # API endpoints
-└── core/                 # Utilities and exceptions
+├── utils/                # Utility modules
+│   └── data_source_manager.py # Data source management
+└── core/                 # Core utilities and exceptions
     ├── exceptions.py     # Custom exception classes
     └── logging.py        # Logging configuration
 ```
@@ -95,10 +102,11 @@ inflation_api/
 - **pytest** - Testing framework with async support
 
 ### Data Flow
-1. **Repository Layer**: `CSVInflationRepository` loads and caches inflation data from CSV
-2. **Service Layer**: `InflationService` implements business logic with proper error handling
-3. **API Layer**: FastAPI routes provide REST endpoints with automatic OpenAPI documentation
-4. **Models**: Pydantic models ensure type safety and validation
+1. **Adapter Layer**: `CSVFormatAdapter` handles CSV format parsing with error handling
+2. **Repository Layer**: `CSVInflationRepository` loads and caches inflation data from CSV
+3. **Service Layer**: `InflationService` implements business logic with proper error handling
+4. **API Layer**: FastAPI routes provide REST endpoints with automatic OpenAPI documentation
+5. **Models**: Pydantic models ensure type safety and validation
 
 ## API Endpoints
 
@@ -186,6 +194,12 @@ uv run pytest tests/unit/ -v
 # Integration tests only
 uv run pytest tests/integration/ -v
 
+# Run a single test file
+uv run pytest tests/unit/test_services/test_inflation_service.py -v
+
+# Run a specific test function
+uv run pytest tests/unit/test_services/test_inflation_service.py::test_calculate_value_change -v
+
 # With coverage report
 uv run pytest --cov=inflation_api --cov-report=html
 ```
@@ -236,3 +250,13 @@ Environment variables (see `.env.example`):
 - `LOG_LEVEL` - Logging level (INFO, DEBUG, etc.)
 - `DEBUG` - Enable debug mode
 - `HOST`, `PORT` - Server configuration
+
+## Version Control
+
+This project uses **Jujutsu (jj)** with Git backend for version control. Use Makefile commands:
+- `make status` - Show working copy status
+- `make commit` - Commit current changes (interactive)
+- `make push` - Push main bookmark to github remote
+- `make sync` - Sync with remotes and rebase
+
+Direct jj commands also available: `jj status`, `jj commit`, `jj git push --bookmark main`
