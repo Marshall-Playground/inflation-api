@@ -1,7 +1,7 @@
 # Inflation API - Development Commands
 # Usage: make <command>
 
-.PHONY: help install lint format test typecheck build dev server clean 
+.PHONY: help install lint format test typecheck build dev server clean frontend-install dev-frontend build-frontend
 
 # Default target
 help:
@@ -15,6 +15,11 @@ help:
 	@echo "  dev        - Start development server with auto-reload"
 	@echo "  server     - Start production server"
 	@echo "  clean      - Clean cache and temporary files"
+	@echo ""
+	@echo "Frontend commands:"
+	@echo "  frontend-install - Install frontend dependencies with npm"
+	@echo "  dev-frontend     - Start Vite dev server for frontend"
+	@echo "  build-frontend   - Build production assets for frontend"
 	@echo ""
 	@echo "Data Source Management:"
 	@echo "  data-sources - Show data source CLI help"
@@ -59,6 +64,21 @@ server:
 	@echo "Running: uv run uvicorn inflation_api.main:app --host 0.0.0.0 --port 8000"
 	uv run uvicorn inflation_api.main:app --host 0.0.0.0 --port 8000
 
+# Frontend dependency install
+frontend-install:
+	@echo "Running: npm install --prefix frontend"
+	npm install --prefix frontend
+
+# Frontend development server
+dev-frontend:
+	@echo "Running: npm run dev --prefix frontend"
+	npm run dev --prefix frontend
+
+# Frontend production build
+build-frontend:
+	@echo "Running: npm run build --prefix frontend"
+	npm run build --prefix frontend
+
 # Clean cache and temporary files
 clean:
 	@echo "Running: find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true"
@@ -77,4 +97,3 @@ clean:
 data-sources:
 	@echo "Running: uv run python scripts/data_sources.py --help"
 	uv run python scripts/data_sources.py --help
-

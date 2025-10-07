@@ -37,6 +37,23 @@ curl http://localhost:8000/api/v1/inflation/rate/2020
 
 To stop the server, interrupt the process (Ctrl+C). If caches need clearing before another run, use `make clean`.
 
+### Optional Frontend Client
+
+A lightweight React/Vite client lives under `frontend/` for exploring the API without crafting HTTP requests manually.
+
+```bash
+# Install dependencies (once)
+make frontend-install
+
+# Configure API base URL (defaults to http://localhost:8000)
+cp frontend/.env.example frontend/.env.local
+
+# Start the Vite dev server on http://localhost:5173
+make dev-frontend
+```
+
+Ensure the FastAPI service is running (`make dev`) before hitting the UI.
+
 ## API Endpoints
 
 ### Core Endpoints
