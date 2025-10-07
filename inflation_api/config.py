@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     port: int = 8000
     reload: bool = False
 
+    # CORS settings
+    cors_origins: list[str] = ["*"]
+
     # Logging settings
     log_level: str = "INFO"
 

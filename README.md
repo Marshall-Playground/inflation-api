@@ -111,6 +111,9 @@ The API works with sensible defaults. For custom configuration, copy `.env.examp
 ```bash
 cp .env.example .env
 # Edit .env as needed
+
+# Allow the frontend dev server origin if you prefer explicit CORS
+echo "CORS_ORIGINS=http://localhost:5173" >> .env
 ```
 
 ## Example Usage
