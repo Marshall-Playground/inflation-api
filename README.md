@@ -2,27 +2,42 @@
 
 A modern FastAPI service that provides USD inflation rate calculations and historical value comparisons. Get inflation rates by year, calculate value changes between periods, and determine current purchasing power of historical amounts.
 
-## =€ Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.12+
 - [uv](https://docs.astral.sh/uv/) package manager
 
-### Setup & Run
+## Installation
+
 ```bash
-# Install dependencies
+# Clone the repository
+git clone https://github.com/<your-org>/inflation-api.git
+cd inflation-api
+
+# Install dependencies (uv sync via Makefile)
 make install
 
-# Set up pre-commit hooks (optional)
+# Optionally enable automated checks
 uv run pre-commit install
+```
 
-# Start development server
+## Local Usage
+
+```bash
+# Start the FastAPI server with auto-reload
 make dev
 ```
 
-The API will be available at `http://localhost:8000` with interactive documentation at `http://localhost:8000/docs`.
+When the server reports `Uvicorn running on http://0.0.0.0:8000`, open `http://localhost:8000/docs` to explore the API. A quick smoke test:
 
-## =Ö API Endpoints
+```bash
+curl http://localhost:8000/api/v1/inflation/rate/2020
+```
+
+To stop the server, interrupt the process (Ctrl+C). If caches need clearing before another run, use `make clean`.
+
+## API Endpoints
 
 ### Core Endpoints
 - `GET /api/v1/inflation/rate/{year}` - Get inflation rate for specific year
@@ -35,7 +50,7 @@ The API will be available at `http://localhost:8000` with interactive documentat
 - `GET /docs` - Interactive API documentation (Swagger UI)
 - `GET /redoc` - Alternative API documentation
 
-## =à Development Commands
+## Development Commands
 
 Run `make` to see all available commands:
 
@@ -62,7 +77,7 @@ uv run pytest tests/unit/ -v       # Unit tests only
 uv run pytest tests/integration/ -v # Integration tests only
 ```
 
-## =Á Manual API Testing
+## Manual API Testing
 
 HTTP request files are available in the `http/` directory for manual testing:
 - `health.http` - Health checks
@@ -72,7 +87,7 @@ HTTP request files are available in the `http/` directory for manual testing:
 
 See `http/README.md` for detailed usage instructions.
 
-## ™ Configuration
+## Configuration
 
 The API works with sensible defaults. For custom configuration, copy `.env.example` to `.env`:
 
@@ -81,7 +96,7 @@ cp .env.example .env
 # Edit .env as needed
 ```
 
-## =Ê Example Usage
+## Example Usage
 
 ### Get inflation rate for 2020
 ```bash
@@ -103,7 +118,7 @@ curl -X POST http://localhost:8000/api/v1/inflation/current-value \
   -d '{"original_year": 2015, "amount": 100.00}'
 ```
 
-## <× Architecture
+## Architecture
 
 Modern Python architecture with clean separation:
 - **FastAPI** - Async web framework with automatic OpenAPI docs
@@ -112,11 +127,11 @@ Modern Python architecture with clean separation:
 - **Service Layer** - Business logic separation
 - **Type Safety** - Full type checking with mypy
 
-## =È Data
+## Data
 
 Currently includes US inflation data from 2015-2025. The API uses compound inflation calculations for accurate multi-year computations with `Decimal` precision for financial accuracy.
 
-## >ê Testing
+## Testing
 
 Comprehensive test suite with 91% coverage:
 - Unit tests for all components
@@ -124,7 +139,7 @@ Comprehensive test suite with 91% coverage:
 - Property-based testing for calculations
 - Error case validation
 
-## =' Development
+## Development
 
 This project follows Test-Driven Development (TDD) and uses modern Python tooling:
 - **uv** for fast dependency management
