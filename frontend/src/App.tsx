@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_BASE_URL } from "./config";
 
 function App(): JSX.Element {
   const [year, setYear] = useState<number>(2020);
@@ -7,10 +8,8 @@ function App(): JSX.Element {
     <main className="app">
       <header>
         <h1>Inflation Calculator</h1>
-        <p>
-          Lightweight client for the Inflation API. Configure the API base URL via environment
-          settings once wiring is complete.
-        </p>
+        <p>Lightweight client for the Inflation API.</p>
+        <p className="hint">Current API base URL: {API_BASE_URL}</p>
       </header>
 
       <section className="card">
